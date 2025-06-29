@@ -1,0 +1,3656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致我最爱的人</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF4B91',
+                        secondary: '#9F66FF',
+                        accent: '#FFD1DA',
+                        dark: '#2A2F4F',
+                    },
+                    fontFamily: {
+                        romantic: ['Dancing Script', 'cursive', 'sans-serif'],
+                        main: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-sparkle {
+                animation: sparkle 1.5s infinite;
+            }
+            .animate-heartbeat {
+                animation: heartbeat 1.5s ease-in-out infinite;
+            }
+            .gradient-text {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                background-image: linear-gradient(135deg, #FF4B91, #9F66FF);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-dark to-black text-white min-h-screen overflow-x-hidden">
+    <!-- 背景星星 -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
+    <!-- 音乐播放器 -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="musicToggle" class="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white rounded-full p-3 transition-all duration-300">
+            <i class="fa fa-music"></i>
+        </button>
+        <audio id="bgMusic" loop>
+            <!-- 相对路径引用 -->
+            <source src="Starling8,MoreLearn 27,FIVESTAR - 苦茶子.mp3" type="audio/mpeg">
+            <!-- 或放在子目录中 -->
+            <!-- <source src="assets/music/Starling8,MoreLearn 27,FIVESTAR - 苦茶子.mp3" type="audio/mpeg"> -->
+        </audio>
+    </div>
+
+    <!-- 主容器 -->
+    <main class="relative z-10 container mx-auto px-4 py-12">
+        <!-- 页面1: 欢迎 -->
+        <section id="page1" class="min-h-screen flex flex-col items-center justify-center text-center">
+            <div class="mb-8">
+                <button id="toggleCustomBtn" class="bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-6 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300 mb-4">
+                    <i class="fa fa-cog mr-2"></i> 定制表白
+                </button>
+            </div>
+            
+            <div id="customForm" class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-xl p-8 mb-8 hidden">
+    <h3 class="text-xl font-semibold mb-4 text-center">定制我们的回忆</h3>
+    <div class="space-y-4">
+        <!-- 新增欢迎文字定制 -->
+        <div>
+            <label for="welcomeText" class="block text-left mb-2">欢迎页面文字</label>
+            <textarea id="welcomeText" rows="2" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">
+                有一句话我一直想对你说，但是从来没有勇气。今天，我想通过这个特别的方式告诉你...
+            </textarea>
+        </div>
+                    <div>
+                        <label for="memory1Title" class="block text-left mb-2">第一次相遇标题</label>
+                        <input type="text" id="memory1Title" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2" 
+                               value="第一次相遇">
+                        
+                        <label for="memory1Img" class="block text-left mb-2">第一次相遇图片</label>
+                        <input type="file" id="memory1Img" accept="image/*" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">
+                        <label for="memory1Text" class="block text-left mb-2 mt-2">第一次相遇描述</label>
+                        <textarea id="memory1Text" rows="2" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">那天，我看到了你的笑容，我的世界从此变得不一样了。</textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="memory2Title" class="block text-left mb-2">第一次约会标题</label>
+                        <input type="text" id="memory2Title" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2" 
+                               value="第一次约会">
+                        
+                        <label for="memory2Img" class="block text-left mb-2">第一次约会图片</label>
+                        <input type="file" id="memory2Img" accept="image/*" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">
+                        <label for="memory2Text" class="block text-left mb-2 mt-2">第一次约会描述</label>
+                        <textarea id="memory2Text" rows="2" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">我们一起看日落，聊天，那一刻，时间仿佛静止了。</textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="memory3Title" class="block text-left mb-2">第一次旅行标题</label>
+                        <input type="text" id="memory3Title" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2" 
+                               value="第一次旅行">
+                        
+                        <label for="memory3Img" class="block text-left mb-2">第一次旅行图片</label>
+                        <input type="file" id="memory3Img" accept="image/*" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">
+                        <label for="memory3Text" class="block text-left mb-2 mt-2">第一次旅行描述</label>
+                        <textarea id="memory3Text" rows="2" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-2">和你一起探索新的地方，是我最美好的经历之一。</textarea>
+                    </div>
+                    
+                    <button id="saveMemories" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-2 px-4 rounded-lg mt-4">
+            保存回忆
+        </button>
+                </div>
+            </div>
+            
+            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-romantic font-bold mb-6 gradient-text animate-float">亲爱的<span id="recipientName">宝贝</span></h1>
+            <p class="text-[clamp(1rem,3vw,1.5rem)] max-w-2xl mx-auto mb-10 leading-relaxed" id="customText">
+                有一句话我一直想对你说，但是从来没有勇气。今天，我想通过这个特别的方式告诉你...
+            </p>
+            <div class="mt-8">
+                <button id="startJourney" class="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                    开始我们的故事 <i class="fa fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 页面2: 回忆 -->
+        <section id="page2" class="min-h-screen flex flex-col items-center justify-center text-center hidden">
+            <h2 class="text-[clamp(2rem,6vw,3.5rem)] font-romantic font-bold mb-12 gradient-text">我们的回忆</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="memory-card bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 bg-white/10 rounded-lg overflow-hidden mb-4">
+                        <img src="https://picsum.photos/seed/memory1/600/400" alt="第一张约会照片" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">第一次相遇</h3>
+                    <p class="text-gray-300">那天，我看到了你的笑容，我的世界从此变得不一样了。</p>
+                </div>
+                
+                <div class="memory-card bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 bg-white/10 rounded-lg overflow-hidden mb-4">
+                        <img src="https://picsum.photos/seed/memory2/600/400" alt="一起看日落的照片" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">第一次约会</h3>
+                    <p class="text-gray-300">我和你一起看日落，聊天，那一刻，时间仿佛静止了。</p>
+                </div>
+                
+                <div class="memory-card bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-lg transform hover:scale-105 transition-all duration-300">
+                    <div class="aspect-w-16 aspect-h-9 bg-white/10 rounded-lg overflow-hidden mb-4">
+                        <img src="https://picsum.photos/seed/memory3/600/400" alt="一起旅行的照片" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">第一次旅行</h3>
+                    <p class="text-gray-300">和你一起探索新的地方，是我最美好的经历之一。</p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <button id="nextToConfession" class="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                    继续 <i class="fa fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 页面3: 表白 -->
+        <section id="page3" class="min-h-screen flex flex-col items-center justify-center text-center hidden">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-[clamp(2rem,6vw,3.5rem)] font-romantic font-bold mb-8 gradient-text">我爱你</h2>
+                
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 md:p-12 shadow-xl">
+                    <p class="text-[clamp(1rem,3vw,1.25rem)] mb-6 leading-relaxed">
+                        从见到你的第一眼起，我就知道你是特别的。你的笑容，你的眼神，你的一切都让我着迷。
+                    </p>
+                    <p class="text-[clamp(1rem,3vw,1.25rem)] mb-6 leading-relaxed">
+                        和你在一起的每一天都是美好的，即使是平凡的日常，因为有你而变得特别。
+                    </p>
+                    <p class="text-[clamp(1rem,3vw,1.25rem)] mb-8 leading-relaxed">
+                        我知道这可能有些突然，但我再也忍不住了。我喜欢你，不仅仅是现在，而是希望有未来的每一天。
+                    </p>
+                    
+                    <div class="mt-10">
+                        <h3 class="text-2xl font-semibold mb-6">你愿意做我的女朋友吗？</h3>
+                        
+                        <div class="flex flex-wrap justify-center gap-6">
+                            <button id="acceptBtn" class="bg-gradient-to-r from-green-500 to-teal-400 hover:from-green-600 hover:to-teal-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                                <i class="fa fa-heart mr-2"></i> 我愿意
+                            </button>
+                            
+                            <button id="rejectBtn" class="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-95 transition-all duration-300 relative overflow-hidden">
+                                <i class="fa fa-times mr-2"></i> 再考虑
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页面4: 接受 -->
+        <section id="page4" class="min-h-screen flex flex-col items-center justify-center text-center hidden">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-[clamp(2rem,8vw,4rem)] font-romantic font-bold mb-6 text-primary animate-heartbeat">
+                    ❤️
+                </div>
+                <h2 class="text-[clamp(2rem,6vw,3.5rem)] font-romantic font-bold mb-4 gradient-text">我就知道！</h2>
+                <p class="text-[clamp(1rem,3vw,1.5rem)] mb-8 leading-relaxed">
+                    你是我生命中最美的遭遇，我会用一生的时间去爱你，珍惜你。
+                </p>
+                
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 shadow-xl mb-10">
+                    <p class="text-xl italic mb-6">
+                        "爱情不是找到合适的人，而是成为合适的人。"
+                    </p>
+                    <p class="text-sm text-gray-400">—— 无名氏</p>
+                </div>
+                
+                <button id="showFinal" class="bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                    未来的我们 <i class="fa fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 页面5: 未来 -->
+        <section id="page5" class="min-h-screen flex flex-col items-center justify-center text-center hidden">
+            <h2 class="text-[clamp(2rem,6vw,3.5rem)] font-romantic font-bold mb-8 gradient-text">我们的未来</h2>
+            
+            <div class="relative w-full max-w-4xl aspect-w-16 aspect-h-9 mb-10">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl backdrop-blur-sm"></div>
+                <div class="absolute inset-4 flex items-center justify-center">
+                    <p class="text-[clamp(1.2rem,4vw,2rem)] font-semibold text-shadow-lg">
+                        一起旅行 · 组建家庭 · 相伴一生
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mb-12">
+                <div class="inline-block p-4 rounded-full bg-white/10 backdrop-blur-md">
+                    <div class="text-4xl md:text-5xl animate-sparkle">
+                        <i class="fa fa-heart text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-[clamp(1rem,3vw,1.25rem)] max-w-2xl mx-auto mb-8">
+                无论未来如何，我都会一直在你身边，牵着你的手，共同面对生活中的一切挑战和美好。
+            </p>
+            
+            <div class="mt-6">
+                <button id="restart" class="bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+                    <i class="fa fa-refresh mr-2"></i> 重新开始
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 拒绝按钮交互效果 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bgMusic = document.getElementById('bgMusic');
+        
+        // 自动播放音乐
+        bgMusic.play().catch(e => {
+            console.log("自动播放被阻止:", e);
+            // 如果自动播放被阻止，显示播放按钮提示
+            document.getElementById('musicToggle').innerHTML = '<i class="fa fa-play"></i>';
+        });
+        
+        // 页面元素
+        const pages = [
+            document.getElementById('page1'),
+            document.getElementById('page2'),
+            document.getElementById('page3'),
+            document.getElementById('page4'),
+            document.getElementById('page5')
+        ];
+        
+        // 按钮
+        const startJourneyBtn = document.getElementById('startJourney');
+        const nextToConfessionBtn = document.getElementById('nextToConfession');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const rejectBtn = document.getElementById('rejectBtn');
+        const showFinalBtn = document.getElementById('showFinal');
+        const restartBtn = document.getElementById('restart');
+        const musicToggle = document.getElementById('musicToggle');
+            
+            // 切换页面函数
+            function showPage(index) {
+                pages.forEach((page, i) => {
+                    if (i === index) {
+                        page.classList.remove('hidden');
+                        page.classList.add('animate-fadeIn');
+                    } else {
+                        page.classList.add('hidden');
+                        page.classList.remove('animate-fadeIn');
+                    }
+                });
+                
+                // 平滑滚动到顶部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // 按钮事件监听
+            startJourneyBtn.addEventListener('click', () => showPage(1));
+            nextToConfessionBtn.addEventListener('click', () => showPage(2));
+            acceptBtn.addEventListener('click', () => showPage(3));
+            showFinalBtn.addEventListener('click', () => showPage(4));
+            restartBtn.addEventListener('click', () => showPage(0));
+            
+            // 音乐控制
+            let isMusicPlaying = false;
+            musicToggle.addEventListener('click', () => {
+                if (isMusicPlaying) {
+                    bgMusic.pause();
+                    musicToggle.innerHTML = '<i class="fa fa-music"></i>';
+                } else {
+                    bgMusic.play().catch(e => console.log('背景音乐播放失败:', e));
+                    musicToggle.innerHTML = '<i class="fa fa-pause"></i>';
+                }
+                isMusicPlaying = !isMusicPlaying;
+            });
+            
+            // 拒绝按钮交互
+            rejectBtn.addEventListener('mouseover', function(e) {
+                // 随机移动按钮位置
+                const maxX = window.innerWidth - this.offsetWidth - 40;
+                const maxY = window.innerHeight - this.offsetHeight - 40;
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                this.style.position = 'fixed';
+                this.style.left = `${randomX}px`;
+                this.style.top = `${randomY}px`;
+                this.style.zIndex = '100';
+            });
+            
+            // 创建星星背景
+            createStars();
+            
+            // 接受表白后的特效
+            acceptBtn.addEventListener('click', function() {
+                createHeartConfetti();
+            });
+        });
+        
+        // 创建星星背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsContainer2 = document.getElementById('stars2');
+            const starsContainer3 = document.getElementById('stars3');
+            
+            // 设置容器样式
+            [starsContainer, starsContainer2, starsContainer3].forEach(container => {
+                container.style.position = 'fixed';
+                container.style.top = '0';
+                container.style.left = '0';
+                container.style.width = '100%';
+                container.style.height = '100%';
+                container.style.overflow = 'hidden';
+                container.style.pointerEvents = 'none';
+                container.style.zIndex = '0';
+            });
+            
+            // 创建星星
+            function createStar(container, size, speed, opacity) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.opacity = opacity;
+                star.style.boxShadow = `0 0 ${size * 2}px white`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 动画
+                star.animate([
+                    { transform: 'translateY(-100vh)' },
+                    { transform: 'translateY(100vh)' }
+                ], {
+                    duration: speed * 1000,
+                    iterations: Infinity,
+                    delay: Math.random() * speed * 1000
+                });
+                
+                container.appendChild(star);
+            }
+            
+            // 创建不同层次的星星
+            for (let i = 0; i < 50; i++) {
+                createStar(starsContainer, Math.random() * 2 + 1, 60 + Math.random() * 40, Math.random() * 0.5 + 0.5);
+            }
+            
+            for (let i = 0; i < 30; i++) {
+                createStar(starsContainer2, Math.random() * 3 + 2, 80 + Math.random() * 60, Math.random() * 0.3 + 0.3);
+            }
+            
+            for (let i = 0; i < 20; i++) {
+                createStar(starsContainer3, Math.random() * 4 + 3, 100 + Math.random() * 80, Math.random() * 0.2 + 0.2);
+            }
+        }
+        
+        // 创建心形粒子
+        function createHeartConfetti() {
+            const colors = ['#FF4B91', '#FF6B8B', '#FF8BA7', '#FFB3C1', '#FFC2D1'];
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.top = '0';
+            container.style.left = '0';
+            container.style.width = '100%';
+            container.style.height = '100%';
+            container.style.pointerEvents = 'none';
+            container.style.zIndex = '50';
+            document.body.appendChild(container);
+            
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('div');
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                heart.innerHTML = '❤';
+                heart.style.position = 'absolute';
+                heart.style.color = color;
+                heart.style.fontSize = `${Math.random() * 20 + 10}px`;
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = '-5%';
+                heart.style.opacity = Math.random() * 0.8 + 0.2;
+                
+                // 动画
+                const animation = heart.animate([
+                    { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${Math.random() * 100 - 50}px, ${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)'
+                });
+                
+                animation.onfinish = () => {
+                    container.removeChild(heart);
+                    if (container.children.length === 0) {
+                        document.body.removeChild(container);
+                    }
+                };
+                
+                container.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 确保DOM完全加载后再执行
+        
+        // 获取标题输入元素
+        const memory1Title = document.getElementById('memory1Title');
+        const memory2Title = document.getElementById('memory2Title');
+        const memory3Title = document.getElementById('memory3Title');
+        
+        // 修复保存按钮事件监听
+        const saveMemoriesBtn = document.getElementById('saveMemories');
+        if (saveMemoriesBtn) {
+            saveMemoriesBtn.addEventListener('click', function() {
+                // 获取所有回忆卡片
+                const memoryCards = document.querySelectorAll('.memory-card');
+                
+                // 确保有足够的卡片
+                if (memoryCards.length >= 3) {
+                    // 更新标题
+                    memoryCards[0].querySelector('h3').textContent = memory1Title.value;
+                    memoryCards[1].querySelector('h3').textContent = memory2Title.value;
+                    memoryCards[2].querySelector('h3').textContent = memory3Title.value;
+                    
+                    // 更新描述文本（如果存在）
+                    const memory1Text = document.getElementById('memory1Text');
+                    const memory2Text = document.getElementById('memory2Text');
+                    const memory3Text = document.getElementById('memory3Text');
+                    
+                    if (memory1Text && memory2Text && memory3Text) {
+                        memoryCards[0].querySelector('p').textContent = memory1Text.value;
+                        memoryCards[1].querySelector('p').textContent = memory2Text.value;
+                        memoryCards[2].querySelector('p').textContent = memory3Text.value;
+                    }
+                }
+                
+                alert('回忆已保存！');
+                document.getElementById('customForm').classList.add('hidden');
+            });
+        }
+        
+        // 获取所有需要的元素
+        const customNameInput = document.getElementById('customName');
+        const customMessageInput = document.getElementById('customMessage');
+        const recipientName = document.getElementById('recipientName');
+        const customText = document.getElementById('customText');
+        
+        // 初始化默认值
+        if(customNameInput && recipientName) {
+            customNameInput.value = recipientName.textContent;
+        }
+        
+        // 添加实时更新事件
+        if(customNameInput && recipientName) {
+            customNameInput.addEventListener('input', function() {
+                recipientName.textContent = this.value || '宝贝';
+            });
+        }
+        
+        if(customMessageInput && customText) {
+            customMessageInput.addEventListener('input', function() {
+                customText.textContent = this.value || 
+                    '有一句话我一直想对你说，但是从来没有勇气。今天，我想通过这个特别的方式告诉你...';
+            });
+        }
+        
+        // 保持之前的按钮功能
+        const toggleCustomBtn = document.getElementById('toggleCustomBtn');
+        const customForm = document.getElementById('customForm');
+        
+        if(toggleCustomBtn && customForm) {
+            toggleCustomBtn.addEventListener('click', function() {
+                customForm.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
+</html>
+<script>
+// 添加保存功能
+document.getElementById('saveCustom').addEventListener('click', function() {
+    // 更新按钮颜色
+            const buttons = document.querySelectorAll('button[id^="startJourney"], button[id^="nextToConfession"], button[id^="showFinal"]');
+            buttons.forEach(btn => {
+                btn.className = btn.className.replace(/from-[^\s]+ to-[^\s]+/, document.getElementById('customColor').value);
+            });
+            
+            // 更新背景音乐
+            const bgMusic = document.getElementById('bgMusic');
+            if(bgMusic) {
+                bgMusic.src = document.getElementById('customMusic').value;
+                bgMusic.load();
+            }
+            
+            // 更新标题
+            document.querySelectorAll('.memory-card h3')[0].textContent = document.getElementById('memory1Title').value;
+            document.querySelectorAll('.memory-card h3')[1].textContent = document.getElementById('memory2Title').value;
+            document.querySelectorAll('.memory-card h3')[2].textContent = document.getElementById('memory3Title').value;
+            
+            // 显示保存成功提示
+            alert('定制设置已保存！');
+});
+</script>
+</html>
+<script>
+// 添加回忆保存功能
+        // 新增欢迎文字更新功能
+        const welcomeText = document.getElementById('welcomeText');
+        const customText = document.getElementById('customText');
+        
+        // 初始化默认值
+        welcomeText.value = customText.textContent;
+        
+        // 新增图片上传处理
+        const memory1Img = document.getElementById('memory1Img');
+        const memory2Img = document.getElementById('memory2Img');
+        const memory3Img = document.getElementById('memory3Img');
+        
+        // 保存按钮点击事件
+        document.getElementById('saveMemories').addEventListener('click', function() {
+            // 处理图片上传
+            const files = [
+                memory1Img.files[0],
+                memory2Img.files[0],
+                memory3Img.files[0]
+            ];
+            
+            files.forEach((file, index) => {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // 更新页面上的图片
+                        document.querySelectorAll('.memory-card img')[index].src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // 更新文本内容
+            document.querySelector('.memory-card:nth-child(1) p').textContent = document.getElementById('memory1Text').value;
+            document.querySelector('.memory-card:nth-child(2) p').textContent = document.getElementById('memory2Text').value;
+            document.querySelector('.memory-card:nth-child(3) p').textContent = document.getElementById('memory3Text').value;
+            
+            // 更新欢迎文字
+            customText.textContent = welcomeText.value;
+            
+            alert('回忆已保存！');
+            document.getElementById('customForm').classList.add('hidden');
+        });
+</script>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+</html>
+    
